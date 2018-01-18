@@ -2,82 +2,85 @@
 #include <math.h>
 
 
-Vector3::Vector3(double x, double y, double z)
+Vector3D::Vector3D(double x, double y, double z) :
+	x(x),
+	y(y),
+	z(z)
 {
 	
 }
 
 
-Vector3::~Vector3()
+Vector3D::~Vector3D()
 {
 }
 
-double Vector3::X()
+double Vector3D::X()
 {
 	return  x;
 }
 
-double Vector3::Y()
+double Vector3D::Y()
 {
 	return y;
 }
-double Vector3::Z()
+double Vector3D::Z()
 {
 	return z;
 }
 
 
-static Vector3 operator +(Vector3 V1, Vector3 V2)
+Vector3D Vector3D::operator +(const Vector3D other) const
 {  // An overloaded operator + to return the sum of 2 vectors
-	return Vector3(V1.x + V2.x, V1.y + V2.y, V1.z + V2.z);
+	return Vector3D(x + other.x, y + other.y, z + other.z);
 }
 
-static Vector3 operator -(Vector3 V1, Vector3 V2)
+Vector3D Vector3D::operator -(const Vector3D other) const
 { // An overloaded operator - to return the difference of 2 vectors
-	return Vector3(V1.x - V2.x, V1.y - V2.y, V1.z - V2.z);
+	return Vector3D(x - other.x, y - other.y, z - other.z);
 }
 
-static Vector3 operator -(Vector3 V)
+Vector3D Vector3D::operator-() const
 {// An overloaded operator - to return the negation of a single vector
-	Vector3 V1 =  Vector3(-V.x, -V.y, -V.z);
+	Vector3D V1 =  Vector3D(-x, -y, -z);
 	return V1;
 }
 
-static double operator *(Vector3 V1, Vector3 V2)
+double Vector3D::operator *(const Vector3D other) const
 {// An overloaded operator * to return the scalar product of 2 vectors
-	return (V1.x * V2.x + V1.y * V2.y + V1.z * V2.z);
+	return (x * other.x + y * other.y + z * other.z);
 }
 
-static Vector3 operator *(double k, Vector3 V1)
+Vector3D Vector3D::operator *(double k) const
 {// An overloaded operator * to return the product of a scalar by a vector
-	return Vector3(V1.x * (float)k, V1.y * (float)k, V1.z * (float)k);
+	return Vector3D(x * k, y * k, z * k);
 }
 
-static Vector3 operator *(float k, Vector3 V1)
+Vector3D Vector3D::operator *(float k) const
 {// An overloaded operator * to return the product of a scalar by a vector
-	return Vector3(V1.x * k, V1.y * k, V1.z * k);
+	return Vector3D(x * k, y * k, z * k);
 }
 
-static Vector3 operator *(int k, Vector3 V1)
+Vector3D Vector3D::operator *(int k) const
 {// An overloaded operator * to return the product of a scalar by a vector
-	return Vector3(V1.x * k, V1.y * k, V1.z * k);
+	return Vector3D(x * k, y * k, z * k);
 }
 
-static Vector3 operator ^(Vector3 V1, Vector3 V2)
+Vector3D Vector3D::operator ^(const Vector3D other) const
 {// An overloaded operator ^ to return the vector product of 2 vectors
-	return Vector3(V1.y * V2.z - V1.z * V2.y, V1.z * V2.x - V1.x * V2.z, V1.x * V2.y - V1.y * V2.x);
+	return Vector3D(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
 }
 
-double Vector3::Length()
+double Vector3D::Length()
 {
 	return double(sqrt(x * x + y * y + z * z));
 }
-double Vector3::LengthSquared()
+double Vector3D::LengthSquared()
 {
 	return double(x * x + y * y + z * z);
 }
 
-void Vector3::Normalise()
+void Vector3D::Normalise()
 {
 	double length = Length();
 	if (length > 0)

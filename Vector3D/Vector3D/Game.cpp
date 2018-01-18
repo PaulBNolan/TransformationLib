@@ -5,8 +5,7 @@
 
 
 Game::Game() :
-	m_window{ sf::VideoMode{ 800, 600, 32 }, "SFML Game" },
-	m_exitGame{false} //when true game will exit
+	m_window{ sf::VideoMode{ 800, 600}, "SFML Game" }
 {
 	primatives;
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -60,6 +59,26 @@ void Game::processEvents()
 			if (sf::Keyboard::Escape == event.key.code)
 			{
 				m_exitGame = true;
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			{
+
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
+
 			}
 		}
 	}

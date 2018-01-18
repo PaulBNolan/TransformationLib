@@ -3,14 +3,15 @@
 #define GAME
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
-#include "Vector3.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-
+#include "Vector3.h"
+#include "Matrix3.h"
 using namespace std;
+using namespace sf;
+
 class Game
 {
 public:
@@ -23,13 +24,17 @@ public:
 
 private:
 	GLuint index;
+
+	Vector3D position;
+	Matrix3 rotation;
+
+
 	void processEvents();
 	void update(sf::Time t_deltaTime);
 	void render();
 
-	sf::RenderWindow m_window; // main SFML window
-	bool m_exitGame; // control exiting game
-
+	Window m_window; // main SFML window
+	bool m_exitGame = false; // control exiting game
 
 	const int primatives = 4;
 };

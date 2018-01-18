@@ -19,65 +19,76 @@ Matrix3::~Matrix3()
 {
 }
 
-static Vector3 operator *(Matrix3 M1, Vector3 V1)
+Vector3D Matrix3::operator *(const Vector3D vector) const
 {// An overloaded operator * to return the  product of the matrix by a vector
-	return Vector3(M1.A11 * V1.X() + M1.A12 * V1.Y() + M1.A13 * V1.Z(),
-		M1.A21 * V1.X() + M1.A22 * V1.Y() + M1.A23 * V1.Z(),
-		M1.A31 * V1.X() + M1.A32 * V1.Y() + M1.A33 * V1.Z());
+	return Vector3D(
+		A11 * vector.x + A12 * vector.y + A13 * vector.z,
+		A21 * vector.x + A22 * vector.y + A23 * vector.z,
+		A31 * vector.x + A32 * vector.y + A33 * vector.z
+	);
 }
 
-static Vector3 operator *(Vector3 V1, Matrix3 M1)
-{// An overloaded operator * to return the  product of the matrix by a vector
-	return Vector3(M1.A11 * V1.X() + M1.A21 * V1.Y() + M1.A31 * V1.Z(),
-		M1.A12 * V1.X() + M1.A22 * V1.Y() + M1.A32 * V1.Z(),
-		M1.A13 * V1.X() + M1.A23 * V1.Y() + M1.A33 * V1.Z());
-}
-
-static Matrix3 operator +(Matrix3 M1, Matrix3 M2)
+Matrix3 Matrix3::operator +(const Matrix3 other) const
 {// An overloaded operator + to return the  sum of two matrix 
-	return Matrix3(M1.A11 + M2.A11, M1.A12 + M2.A12, M1.A13 + M2.A13,
-		M1.A21 + M2.A21, M1.A22 + M2.A22, M1.A23 + M2.A23,
-		M1.A31 + M2.A31, M1.A32 + M2.A32, M1.A33 + M2.A33);
+	return Matrix3(
+		A11 + other.A11, 
+		A12 + other.A12, 
+		A13 + other.A13,
+		A21 + other.A21, 
+		A22 + other.A22,
+		A23 + other.A23,
+		A31 + other.A31, 
+		A32 + other.A32, 
+		A33 + other.A33)
+		;
 }
-static Matrix3 operator -(Matrix3 M1, Matrix3 M2)
+Matrix3 Matrix3::operator -(const Matrix3 other) const
 {// An overloaded operator * to return the  difference of two matrix
-	return Matrix3(M1.A11 - M2.A11, M1.A12 - M2.A12, M1.A13 - M2.A13,
-		M1.A21 - M2.A21, M1.A22 - M2.A22, M1.A23 - M2.A23,
-		M1.A31 - M2.A31, M1.A32 - M2.A32, M1.A33 - M2.A33);
+	return Matrix3(
+		A11 - other.A11, 
+		A12 - other.A12, 
+		A13 - other.A13,
+		A21 - other.A21,
+		A22 - other.A22, 
+		A23 - other.A23,
+		A31 - other.A31, 
+		A32 - other.A32, 
+		A33 - other.A33
+	);
 }
 
-static Matrix3 operator *(double x, Matrix3 M1)
+Matrix3 Matrix3::operator *(const double scale) const
 {// An overloaded operator * to return the  product of the matrix by a scalar
-	Matrix3 answer = Matrix3(M1.A11 * x, M1.A12 * x, M1.A13 * x, M1.A21 * x, M1.A22 * x, M1.A23 * x, M1.A31 * x, M1.A32 * x, M1.A33 * x);
-	answer.A11 = M1.A11 * x;
-	answer.A12 = M1.A12 * x;
-	answer.A13 = M1.A13 * x;
-
-	answer.A21 = M1.A21 * x;
-	answer.A22 = M1.A22 * x;
-	answer.A23 = M1.A23 * x;
-
-	answer.A31 = M1.A31 * x;
-	answer.A32 = M1.A32 * x;
-	answer.A33 = M1.A33 * x;
+	Matrix3 answer = Matrix3
+	(
+		A11 * scale, 
+		A12 * scale, 
+		A13 * scale, 
+		A21 * scale, 
+		A22 * scale, 
+		A23 * scale, 
+		A31 * scale, 
+		A32 * scale, 
+		A33 * scale
+	);
 
 	return answer;
 }
 
-static Matrix3 operator *(Matrix3 M1, Matrix3 M2)
+Matrix3 Matrix3::operator *(const Matrix3 other) const
 {// An overloaded operator * to return the  product of two matrix
 	Matrix3 answer = Matrix3(
-		M1.A11 * M2.A11 + M1.A12 * M2.A21 + M1.A13 * M2.A31,
-		M1.A11 * M2.A12 + M1.A12 * M2.A22 + M1.A13 * M2.A32,
-		M1.A11 * M2.A13 + M1.A12 * M2.A23 + M1.A13 * M2.A33,
+		A11 * other.A11 + A12 * other.A21 + A13 * other.A31,
+		A11 * other.A12 + A12 * other.A22 + A13 * other.A32,
+		A11 * other.A13 + A12 * other.A23 + A13 * other.A33,
 
-		M1.A21 * M2.A11 + M1.A12 * M2.A21 + M1.A13 * M2.A31,
-		M1.A21 * M2.A12 + M1.A12 * M2.A22 + M1.A13 * M2.A32,
-		M1.A21 * M2.A13 + M1.A12 * M2.A23 + M1.A13 * M2.A33,
+		A21 * other.A11 + A12 * other.A21 + A13 * other.A31,
+		A21 * other.A12 + A12 * other.A22 + A13 * other.A32,
+		A21 * other.A13 + A12 * other.A23 + A13 * other.A33,
 
-		M1.A31 * M2.A11 + M1.A32 * M2.A21 + M1.A33 * M2.A31,
-		M1.A31 * M2.A12 + M1.A32 * M2.A22 + M1.A33 * M2.A32,
-		M1.A31 * M2.A13 + M1.A32 * M2.A23 + M1.A33 * M2.A33
+		A31 * other.A11 + A32 * other.A21 + A33 * other.A31,
+		A31 * other.A12 + A32 * other.A22 + A33 * other.A32,
+		A31 * other.A13 + A32 * other.A23 + A33 * other.A33
 	);
 
 	return answer;
@@ -96,32 +107,32 @@ double Matrix3::Determinant(Matrix3 M1)
 	return M1.A11 * M1.A22 * M1.A33 - M1.A11 * M1.A32 * M1.A23 + M1.A21 * M1.A32 * M1.A13 - M1.A31 * M1.A22 * M1.A13 + M1.A31 * M1.A12 * M1.A23 - M1.A21 * M1.A12 * M1.A33;
 }
 
-Vector3 Matrix3::Row(int i)
+Vector3D Matrix3::Row(int i)
 {
 	// a method to return as Row as vector3 0 == first row, default == last row
 	switch (i)
 	{
 	case 0:
-		return Vector3(A11, A12, A13);
+		return Vector3D(A11, A12, A13);
 	case 1:
-		return Vector3(A21, A22, A23);
+		return Vector3D(A21, A22, A23);
 	case 2:
 	default:
-		return Vector3(A31, A32, A33);
+		return Vector3D(A31, A32, A33);
 	}
 }
 
-Vector3 Matrix3::Column(int i)
+Vector3D Matrix3::Column(int i)
 {// a method to return as column as vector3 0 == first column, default == last column
 	switch (i)
 	{
 	case 0:
-		return Vector3(A11, A21, A31);
+		return Vector3D(A11, A21, A31);
 	case 1:
-		return Vector3(A12, A22, A32);
+		return Vector3D(A12, A22, A32);
 	case 2:
 	default:
-		return Vector3(A13, A23, A33);
+		return Vector3D(A13, A23, A33);
 	}
 }
 
@@ -201,9 +212,19 @@ Matrix3 Matrix3::Scale(int dx, int dy)
 	return answer;
 }
 
-static Matrix3 operator -(Matrix3 M1)
+Matrix3 Matrix3::operator-() const
 {
-	return -1 * M1;
+	return Matrix3(
+		-A11,
+		-A12,
+		-13,
+		-A21,
+		-A22,
+		-A23,
+		-A31,
+		-A32,
+		-A33
+	);
 }
 
 Matrix3 Matrix3::RotationX(int _angle)

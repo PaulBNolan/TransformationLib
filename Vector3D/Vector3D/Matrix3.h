@@ -19,11 +19,25 @@ public:
 	double A32;
 	double A33;
 
+
+	Vector3D operator *(const Vector3D vector) const;
+
+	//Vector3 operator *(Vector3 V1, Matrix3 M1) const;
+
+	Matrix3 operator +(const Matrix3 other) const;
+	Matrix3 operator -(const Matrix3 other) const;
+
+	Matrix3 operator *(const double scale) const;
+
+	Matrix3 operator *(const Matrix3 other) const;
+
+	Matrix3 operator- () const;
+
 	double Determinant(Matrix3 M1);
 
-	Vector3 Row(int i);
+	Vector3D Row(int i);
 
-	Vector3 Column(int i);
+	Vector3D Column(int i);
 
 
 	Matrix3 Inverse(Matrix3 M1);
@@ -36,7 +50,7 @@ public:
 
 	Matrix3 Scale(int dx, int dy);
 
-	Matrix3 operator -(Matrix3 M1);
+	
 
 	static Matrix3 RotationX(int _angle);
 
